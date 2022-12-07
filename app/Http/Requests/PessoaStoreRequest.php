@@ -29,7 +29,7 @@ class PessoaStoreRequest extends FormRequest
             'sobrenome' => 'required|min:2|max:100',
             'cpf' => "required|numeric|digits:11|unique:pessoas,cpf",
             'celular' => "nullable|string|min:8|max:20",
-            'logradouro' => "required|string|min:8|max:120",
+            'logradouro' => "required|string|min:4|max:120",
             'cep' => "required|string|min:8|max:20"
         ];
     }

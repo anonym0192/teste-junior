@@ -6,6 +6,8 @@ namespace App\Services;
 use App\Repositories\PessoaRepository;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Illuminate\Validation\ValidationException;
+use GuzzleHttp\Client;
 
 class PessoaService implements PessoaServiceInterface
 {
@@ -41,6 +43,8 @@ class PessoaService implements PessoaServiceInterface
      */
     public function create(array $data): ?Model
     {
+        $this->validarCEP($data['cep']);
+
         return $this->pessoaRepo->create($data);
     }
 
@@ -59,6 +63,36 @@ class PessoaService implements PessoaServiceInterface
     public function update(array $data, int $id): ?Model
     {
         // TODO: Implement update() method.
+
+        $this->validarCEP($data['cep']);
+
         return $this->pessoaRepo->update( $data , $id );
+    }
+
+
+     /**
+     * Verifica se o CEP é válido e realmente existe fazendo uma requisição via get para o viacep
+     *
+     * @param int $cep
+     * @return void
+     * @throws ValidationException
+     */
+    private function validarCEP(String $cep): bool
+    {
+        $client = new Client();
+
+        $response = $client->request('GET', "viacep.com.br/ws/$cep/json", ['http_errors' => false]);
+
+        $result = $response->getBody()->getContents();
+
+        $decodedResult = json_decode($result , true); 
+
+        //Se a requisição receber como resposta um status 400 ou um atributo 'erro' significa que o cep informado é inválido ou inexistente
+        if($response->getStatusCode() == 400 || isset($decodedResult['erro']) ){
+            throw ValidationException::withMessages(['cep' => 'Valor do CEP inválido!']);
+        }
+        
+        return true;
+        
     }
 }
