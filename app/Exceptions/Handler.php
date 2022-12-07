@@ -60,7 +60,7 @@ class Handler extends ExceptionHandler
 
       if ($exception instanceof ModelNotFoundException) {
 
-            return response()->json(['error' => 'Registro não encntrado'], 404);
+            return response()->json(['error' => 'Registro não encontrado'], 404);
         } 
 
             

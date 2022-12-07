@@ -60,7 +60,7 @@ class PessoaController extends Controller
         if ($pessoa) {
             return response()->json($pessoa, Response::HTTP_OK);
         }
-        return response()->json($pessoa, Response::HTTP_NOT_FOUND);
+        return response()->json(['error' => 'Registro não encontrado'], Response::HTTP_NOT_FOUND);
     }
 
     /**
@@ -73,7 +73,14 @@ class PessoaController extends Controller
     public function update(PessoaUpdateRequest $request, $id)
     {
         //
+
+        $pessoa = $this->pessoaService->update($request->all());
+        if ($pessoa) {
+            return response()->json($pessoa, Response::HTTP_OK);
+        }
+        return response()->json($pessoa, Response::HTTP_BAD_REQUEST);
     }
+    
 
     /**
      * Remove the specified resource from storage.
@@ -84,5 +91,13 @@ class PessoaController extends Controller
     public function destroy($id)
     {
         //
+
+        $excluido = $this->pessoaService->delete($id);
+        if(!$excluido){
+            return response()->json(["error" => "Registro $id não pode ser excluído!"], Response::HTTP_INTERNAL_SERVER_ERROR);    
+        }
+
+        return response()->json(["message" => "Pessoa de id $id excluída com sucesso!"], Response::HTTP_OK);
+        
     }
 }
