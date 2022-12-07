@@ -74,11 +74,11 @@ class PessoaController extends Controller
     {
         //
 
-        $pessoa = $this->pessoaService->update($request->all());
+        $pessoa = $this->pessoaService->update($request->all() , $id);
         if ($pessoa) {
             return response()->json($pessoa, Response::HTTP_OK);
         }
-        return response()->json($pessoa, Response::HTTP_BAD_REQUEST);
+        return response()->json(["error" => "Registro $id não pode ser atualizado!"] , Response::HTTP_INTERNAL_SERVER_ERROR);
     }
     
 
@@ -94,7 +94,7 @@ class PessoaController extends Controller
 
         $excluido = $this->pessoaService->delete($id);
         if(!$excluido){
-            return response()->json(["error" => "Registro $id não pode ser excluído!"], Response::HTTP_INTERNAL_SERVER_ERROR);    
+            return response()->json(["error" => "Registro $id não pôde ser excluído!"], Response::HTTP_INTERNAL_SERVER_ERROR);    
         }
 
         return response()->json(["message" => "Pessoa de id $id excluída com sucesso!"], Response::HTTP_OK);
