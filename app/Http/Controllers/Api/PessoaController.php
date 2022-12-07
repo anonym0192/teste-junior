@@ -50,6 +50,7 @@ class PessoaController extends Controller
      */
     public function show($id)
     {
+
         $pessoa = $this->pessoaService->find($id);
         if ($pessoa) {
             return response()->json($pessoa, Response::HTTP_OK);
