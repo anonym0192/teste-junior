@@ -29,6 +29,10 @@ class PessoaController extends Controller
     public function index()
     {
         //
+
+        $pessoas = $this->pessoaService->all();
+
+        return response()->json($pessoas, Response::HTTP_OK);
     }
 
     /**
@@ -37,12 +41,6 @@ class PessoaController extends Controller
      */
     public function store(PessoaStoreRequest $request)
     {
-
-        $validated = $request->validated();
-
-        dd($validated);
-
-        return response()->json(['working' => true]);
 
         $pessoa = $this->pessoaService->create($request->all());
         if ($pessoa) {
@@ -62,7 +60,7 @@ class PessoaController extends Controller
         if ($pessoa) {
             return response()->json($pessoa, Response::HTTP_OK);
         }
-        return response()->json($pessoa, Response::HTTP_BAD_REQUEST);
+        return response()->json($pessoa, Response::HTTP_NOT_FOUND);
     }
 
     /**
