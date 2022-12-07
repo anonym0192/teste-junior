@@ -37,6 +37,13 @@ class PessoaController extends Controller
      */
     public function store(PessoaStoreRequest $request)
     {
+
+        $validated = $request->validated();
+
+        dd($validated);
+
+        return response()->json(['working' => true]);
+
         $pessoa = $this->pessoaService->create($request->all());
         if ($pessoa) {
             return response()->json($pessoa, Response::HTTP_OK);

@@ -13,7 +13,7 @@ class PessoaUpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,6 +25,12 @@ class PessoaUpdateRequest extends FormRequest
     {
         return [
             //
+            'nome' => 'required|min:2|max:80',
+            'sobrenome' => 'required|min:2|max:100',
+            'cpf' => "required|numeric|digits:11|unique:pessoas,cpf",
+            'celular' => "nullable|string|min:8|max:20",
+            'logradouro' => "required|string|min:8|max:120",
+            'cep' => "required|string|min:8|max:20"
         ];
     }
 }
