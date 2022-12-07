@@ -19,10 +19,10 @@ class CreatePessoasTable extends Migration
             $table->increments('id');
             $table->text('nome');
             $table->text('sobrenome');
-            $table->text('cpf');
-            $table->string('celular');
+            $table->string('cpf', 11);
+            $table->string('celular', 20);
             $table->longText('logradouro');
-            $table->string('cep');
+            $table->string('cep', 20);
 
             $table->timestamps();
 		});
