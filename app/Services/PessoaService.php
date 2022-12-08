@@ -74,7 +74,7 @@ class PessoaService implements PessoaServiceInterface
      * Verifica se o CEP é válido e realmente existe fazendo uma requisição via get para o viacep
      *
      * @param int $cep
-     * @return void
+     * @return mixed
      * @throws ValidationException
      */
     private function validarCEP(String $cep): bool

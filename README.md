@@ -7,6 +7,37 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
 
+##Como rodar o projeto
+
+Clone o repositório
+   
+Entre na pasta do projeto e rode o composer update
+
+Rode o comando php artisan key:generate
+
+Preecha os campos DB_HOST, DB_PORT , DB_DATABASE , DB_USERNAME , DB_PASSWORD corretamente no arquivo .env de acordo com a configuração local de banco de dados
+
+Rode o php artisan migrate para criar as tabelas
+
+Rotas
+
+/pessoas Lista todas as Pessoas [GET]
+/pessoa Cria uma Pessoa nova [POST]
+/pessoa/{id} Retorna os dados de uma Pessoa criada [DELETE]
+/pessoa/{id} Atualiza os dados de uma Pessoa  [PUT]
+/pessoa/{id} Exclui uma Pessoa [DELETE]
+
+
+Campos enviados via PUT e POST
+
+nome
+sobrenome
+cpf
+celular
+logradouro
+cep
+
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
