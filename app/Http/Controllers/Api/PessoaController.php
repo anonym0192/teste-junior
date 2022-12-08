@@ -8,6 +8,7 @@ use App\Http\Requests\PessoaUpdateRequest;
 use App\Services\PessoaServiceInterface;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class PessoaController extends Controller
 {
@@ -56,11 +57,14 @@ class PessoaController extends Controller
     public function show($id)
     {
 
-        $pessoa = $this->pessoaService->find($id);
-        if ($pessoa) {
+        try{
+            $pessoa = $this->pessoaService->find($id);
+            
             return response()->json($pessoa, Response::HTTP_OK);
+            
+        }catch(ModelNotFoundException $e){
+            return response()->json(['error' => 'Registro não encontrado'], Response::HTTP_NOT_FOUND);
         }
-        return response()->json(['error' => 'Registro não encontrado'], Response::HTTP_NOT_FOUND);
     }
 
     /**
@@ -74,11 +78,16 @@ class PessoaController extends Controller
     {
         //
 
-        $pessoa = $this->pessoaService->update($request->all() , $id);
-        if ($pessoa) {
+        try{
+          
+            $pessoa = $this->pessoaService->update($request->all() , $id);
+            
             return response()->json($pessoa, Response::HTTP_OK);
+            
+        }catch(ModelNotFoundException $e){
+            return response()->json(['error' => 'Registro não encontrado'], Response::HTTP_NOT_FOUND);
         }
-        return response()->json(["error" => "Registro $id não pode ser atualizado!"] , Response::HTTP_INTERNAL_SERVER_ERROR);
+       
     }
     
 
@@ -91,13 +100,19 @@ class PessoaController extends Controller
     public function destroy($id)
     {
         //
+        try{
+            $this->pessoaService->delete($id);
 
-        $excluido = $this->pessoaService->delete($id);
-        if(!$excluido){
-            return response()->json(["error" => "Registro $id não pôde ser excluído!"], Response::HTTP_INTERNAL_SERVER_ERROR);    
+            return response()->json(["message" => "Pessoa de id $id excluída com sucesso!"], Response::HTTP_OK);
+
+        }catch(ModelNotFoundException $e){
+            return response()->json(['error' => 'Registro não encontrado'], Response::HTTP_NOT_FOUND);
+        }
+        catch(\Exception $e){
+            return response()->json(["error" => "Registro $id não pôde ser excluído!"], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        return response()->json(["message" => "Pessoa de id $id excluída com sucesso!"], Response::HTTP_OK);
+        
         
     }
 }
