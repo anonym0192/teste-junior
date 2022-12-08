@@ -12,20 +12,29 @@ Rode o php artisan migrate para criar as tabelas
 
 Rotas
 
-/pessoas Lista todas as Pessoas [GET]
+/pessoas Lista todas as Pessoas [GET] 
+
 /pessoa Cria uma Pessoa nova [POST]
+
 /pessoa/{id} Retorna os dados de uma Pessoa criada [DELETE]
+
 /pessoa/{id} Atualiza os dados de uma Pessoa  [PUT]
+
 /pessoa/{id} Exclui uma Pessoa [DELETE]
 
 
 Campos enviados via PUT e POST
 
 nome
+
 sobrenome
+
 cpf
+
 celular
+
 logradouro
+
 cep
 
 
