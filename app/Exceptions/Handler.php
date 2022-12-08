@@ -64,9 +64,8 @@ class Handler extends ExceptionHandler
         } 
 
             
-        return response()->json(['error' => dump($exception)] , 500); 
+        return response()->json(['error' => "Ocorreu um erro interno no servidor"] , 500); 
 
-        //return response()->json(['error' => get_class($exception)] , 500);
         
         return parent::render($request, $exception);
     }
