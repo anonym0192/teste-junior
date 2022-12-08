@@ -10,6 +10,8 @@ Preecha os campos DB_HOST, DB_PORT , DB_DATABASE , DB_USERNAME , DB_PASSWORD cor
 
 Rode o php artisan migrate para criar as tabelas
 
+Rode o comando php artisan serve
+
 ## Rotas
 
 - /api/v1/pessoas Lista todas as Pessoas [GET]
