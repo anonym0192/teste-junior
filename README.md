@@ -1,3 +1,34 @@
+##Como rodar o projeto
+
+Clone o repositório
+   
+Entre na pasta do projeto e rode o composer update
+
+Rode o comando php artisan key:generate
+
+Preecha os campos DB_HOST, DB_PORT , DB_DATABASE , DB_USERNAME , DB_PASSWORD corretamente no arquivo .env de acordo com a configuração local de banco de dados
+
+Rode o php artisan migrate para criar as tabelas
+
+Rotas
+
+/pessoas Lista todas as Pessoas [GET]
+/pessoa Cria uma Pessoa nova [POST]
+/pessoa/{id} Retorna os dados de uma Pessoa criada [DELETE]
+/pessoa/{id} Atualiza os dados de uma Pessoa  [PUT]
+/pessoa/{id} Exclui uma Pessoa [DELETE]
+
+
+Campos enviados via PUT e POST
+
+nome
+sobrenome
+cpf
+celular
+logradouro
+cep
+
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
 <p align="center">
